@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Image to PDF Converter",
-  description: "Convert multiple images into a single PDF document.",
+  title: "Prism — Image to PDF",
+  description: "Convert, compose, and compile images into PDFs client-side with Prism.",
 };
 
 export default function RootLayout({ children }) {

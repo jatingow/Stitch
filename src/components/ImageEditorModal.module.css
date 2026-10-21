@@ -1,0 +1,244 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 19, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: #FAF8F5;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlide {
+  from {
+    transform: scale(0.98) translateY(6px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.iconAccent {
+  color: var(--ink-primary);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  letter-spacing: -0.01em;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.closeBtn:hover {
+  color: var(--ink-primary);
+  background: var(--bg-muted);
+}
+
+.toolbar {
+  padding: 0.75rem 1.5rem;
+  background: #F3EFE7;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.toolGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.groupLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-secondary);
+  margin-right: 0.25rem;
+  font-weight: 700;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.toolBtn {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-primary);
+  padding: 0.38rem 0.65rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: var(--transition);
+}
+
+.toolBtn:hover:not(:disabled) {
+  background: #FAF8F5;
+  border-color: var(--border-strong);
+}
+
+.toolBtnActive {
+  background: var(--ink-primary) !important;
+  color: #FFFFFF !important;
+  border-color: var(--ink-primary) !important;
+}
+
+.cropperContainer {
+  position: relative;
+  flex: 1;
+  min-height: 360px;
+  max-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #EFEBE2;
+  overflow: auto;
+}
+
+.reactCrop {
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editorImg {
+  max-height: 50vh;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.loaderBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 248, 245, 0.7);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--ink-primary);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.footer {
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hint {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-secondary);
+}
+
+.footerActions {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.btnSecondary {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-primary);
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnSecondary:hover:not(:disabled) {
+  background: var(--bg-muted);
+}
