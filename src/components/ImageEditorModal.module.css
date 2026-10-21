@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 20, 19, 0.45);
+  background: rgba(10, 10, 9, 0.65);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 9999;
@@ -22,16 +22,17 @@
 }
 
 .modal {
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.4);
   width: 100%;
   max-width: 860px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: var(--ink-primary);
   animation: modalSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -52,7 +53,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-subtle);
-  background: #FFFFFF;
+  background: var(--bg-card);
 }
 
 .titleWrap {
@@ -93,7 +94,7 @@
 
 .toolbar {
   padding: 0.75rem 1.5rem;
-  background: #F3EFE7;
+  background: var(--bg-muted);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -124,7 +125,7 @@
 }
 
 .toolBtn {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--ink-primary);
   padding: 0.38rem 0.65rem;
@@ -140,14 +141,14 @@
 }
 
 .toolBtn:hover:not(:disabled) {
-  background: #FAF8F5;
+  background: var(--bg-muted);
   border-color: var(--border-strong);
 }
 
 .toolBtnActive {
-  background: var(--ink-primary) !important;
-  color: #FFFFFF !important;
-  border-color: var(--ink-primary) !important;
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-color: var(--btn-primary-bg) !important;
 }
 
 .cropperContainer {
@@ -159,7 +160,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: #EFEBE2;
+  background: var(--bg-muted-hover);
   overflow: auto;
 }
 
@@ -175,13 +176,13 @@
   max-width: 100%;
   object-fit: contain;
   border-radius: 2px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .loaderBackdrop {
   position: absolute;
   inset: 0;
-  background: rgba(250, 248, 245, 0.7);
+  background: rgba(18, 18, 18, 0.7);
   backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
@@ -206,7 +207,7 @@
 .footer {
   padding: 0.85rem 1.5rem;
   border-top: 1px solid var(--border-subtle);
-  background: #FFFFFF;
+  background: var(--bg-card);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -226,7 +227,7 @@
 }
 
 .btnSecondary {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--ink-primary);
   padding: 0.55rem 1.15rem;

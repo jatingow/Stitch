@@ -1,7 +1,7 @@
 'use client';
-import { useState, useRef } from 'react';
-import { 
-  DndContext, 
+import { useState, useRef, useEffect } from 'react';
+import {
+  DndContext,
   closestCenter,
   KeyboardSensor,
   PointerSensor,
@@ -18,24 +18,40 @@ import { SortableItem } from './SortableItem';
 import ImageEditorModal from './ImageEditorModal';
 import { generatePDFFromImages } from '@/utils/pdfGenerator';
 import { rotateImage } from '@/utils/imageUtils';
-import { INITIAL_SAMPLE_PLATES } from '@/utils/samplePlates';
-import { 
-  Upload, 
+import {
+  Upload,
   RotateCcw,
-  Plus, 
-  FileDown, 
-  Check, 
+  Plus,
+  FileDown,
+  Check,
   CheckCircle,
-  FileText
+  FileText,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import styles from './ImageUploader.module.css';
 
 export default function ImageUploader() {
-  const [images, setImages] = useState(INITIAL_SAMPLE_PLATES);
+  const [images, setImages] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [isCompleted, setIsCompleted] = useState(false);
   const [editingImage, setEditingImage] = useState(null);
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('prism-theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(saved);
+    document.documentElement.setAttribute('data-theme', saved);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('prism-theme', next);
+    document.documentElement.setAttribute('data-theme', next);
+  };
 
   // Formulation Settings
   const [settings, setSettings] = useState({
@@ -77,7 +93,7 @@ export default function ImageUploader() {
   // File Upload Handling
   const handleFiles = (files) => {
     const fileList = Array.from(files).filter((file) => file.type.startsWith('image/'));
-    
+
     fileList.forEach((file) => {
       const img = new Image();
       const objectUrl = URL.createObjectURL(file);
@@ -140,12 +156,12 @@ export default function ImageUploader() {
         prev.map((img) =>
           img.id === id
             ? {
-                ...img,
-                file: result.blob,
-                preview: result.previewUrl,
-                dimensions: `${result.width} × ${result.height} PX`,
-                isEdited: true,
-              }
+              ...img,
+              file: result.blob,
+              preview: result.previewUrl,
+              dimensions: `${result.width} × ${result.height} PX`,
+              isEdited: true,
+            }
             : img
         )
       );
@@ -162,12 +178,12 @@ export default function ImageUploader() {
         prev.map((plate) =>
           plate.id === id
             ? {
-                ...plate,
-                file: blob,
-                preview: previewUrl,
-                dimensions: `${img.naturalWidth} × ${img.naturalHeight} PX`,
-                isEdited: true,
-              }
+              ...plate,
+              file: blob,
+              preview: previewUrl,
+              dimensions: `${img.naturalWidth} × ${img.naturalHeight} PX`,
+              isEdited: true,
+            }
             : plate
         )
       );
@@ -194,10 +210,10 @@ export default function ImageUploader() {
         password: settings.enableCipher ? settings.password : '',
         metadata: settings.enableMetadata
           ? {
-              title: settings.title,
-              author: settings.author,
-              subject: settings.subject,
-            }
+            title: settings.title,
+            author: settings.author,
+            subject: settings.subject,
+          }
           : {},
         watermark: settings.enableWatermark ? settings.watermark : '',
         smartScaling: settings.smartScaling,
@@ -226,22 +242,18 @@ export default function ImageUploader() {
       <header className={styles.topNav}>
         <div className={styles.brandCluster}>
           <span className={styles.brandTitle}>Prism</span>
-          <span className={styles.brandDivider}>/</span>
-          <span className={styles.brandSub}>Image to PDF Converter</span>
         </div>
 
         <div className={styles.headerActions}>
-          {images.length > 0 && (
-            <button 
-              type="button" 
-              className={styles.clearBtn} 
-              onClick={clearStaging}
-              title="Clear all images"
-            >
-              <RotateCcw size={13} />
-              <span>CLEAR ALL</span>
-            </button>
-          )}
+          <button
+            type="button"
+            className={styles.themeToggleBtn}
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+          </button>
         </div>
       </header>
 
@@ -260,7 +272,7 @@ export default function ImageUploader() {
         {/* ================= LEFT COLUMN ================= */}
         <div className={styles.draftingColumn}>
           {/* Dropzone Box */}
-          <div 
+          <div
             className={styles.editorialDropzone}
             onDrop={onDrop}
             onDragOver={onDragOver}
@@ -286,13 +298,13 @@ export default function ImageUploader() {
               ))}
             </div>
 
-            <input 
+            <input
               ref={fileInputRef}
-              type="file" 
-              multiple 
-              accept="image/*" 
-              onChange={(e) => handleFiles(e.target.files)} 
-              style={{ display: 'none' }} 
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={(e) => handleFiles(e.target.files)}
+              style={{ display: 'none' }}
             />
           </div>
 
@@ -308,22 +320,22 @@ export default function ImageUploader() {
                 </span>
               </div>
 
-              <DndContext 
+              <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
               >
-                <SortableContext 
+                <SortableContext
                   items={images.map((img) => img.id)}
                   strategy={rectSortingStrategy}
                 >
                   <div className={styles.platesGrid}>
                     {images.map((image, index) => (
-                      <SortableItem 
-                        key={image.id} 
+                      <SortableItem
+                        key={image.id}
                         id={image.id}
                         index={index}
-                        image={image} 
+                        image={image}
                         onRemove={removeImage}
                         onEdit={(img) => setEditingImage(img)}
                         onQuickRotate={handleQuickRotate}
@@ -331,7 +343,7 @@ export default function ImageUploader() {
                     ))}
 
                     {/* Empty Insert Slot */}
-                    <div 
+                    <div
                       className={styles.insertPlateSlot}
                       onClick={() => fileInputRef.current?.click()}
                       title="Add more images"
@@ -369,7 +381,7 @@ export default function ImageUploader() {
                 <span className={styles.sectionSubtext}>ISO 216</span>
               </div>
 
-              <select 
+              <select
                 id="geometry-select"
                 className={styles.ticketSelect}
                 value={settings.pageSize}
@@ -411,7 +423,7 @@ export default function ImageUploader() {
                 </span>
               </div>
 
-              <input 
+              <input
                 id="margin-slider"
                 type="range"
                 min="0"
@@ -449,7 +461,7 @@ export default function ImageUploader() {
               </div>
 
               <div className={styles.densityOptionsList}>
-                <div 
+                <div
                   className={`${styles.densityOption} ${settings.density === 'archival' ? styles.densityOptionActive : ''}`}
                   onClick={() => updateSetting('density', 'archival')}
                 >
@@ -463,7 +475,7 @@ export default function ImageUploader() {
                   <div className={styles.densityRate}>100%</div>
                 </div>
 
-                <div 
+                <div
                   className={`${styles.densityOption} ${settings.density === 'proof' ? styles.densityOptionActive : ''}`}
                   onClick={() => updateSetting('density', 'proof')}
                 >
@@ -477,7 +489,7 @@ export default function ImageUploader() {
                   <div className={styles.densityRate}>85%</div>
                 </div>
 
-                <div 
+                <div
                   className={`${styles.densityOption} ${settings.density === 'transmission' ? styles.densityOptionActive : ''}`}
                   onClick={() => updateSetting('density', 'transmission')}
                 >
@@ -517,10 +529,10 @@ export default function ImageUploader() {
                 {settings.enableCipher && (
                   <div className={styles.nestedInputCard}>
                     <label className={styles.nestedLabel} htmlFor="cipher-pwd">DOCUMENT PASSWORD</label>
-                    <input 
+                    <input
                       id="cipher-pwd"
-                      type="text" 
-                      placeholder="Enter password..." 
+                      type="text"
+                      placeholder="Enter password..."
                       value={settings.password}
                       onChange={(e) => updateSetting('password', e.target.value)}
                       className={styles.nestedInput}
@@ -545,10 +557,10 @@ export default function ImageUploader() {
                 {settings.enableWatermark && (
                   <div className={styles.nestedInputCard}>
                     <label className={styles.nestedLabel} htmlFor="watermark-txt">WATERMARK TEXT</label>
-                    <input 
+                    <input
                       id="watermark-txt"
-                      type="text" 
-                      placeholder="e.g. CONFIDENTIAL" 
+                      type="text"
+                      placeholder="e.g. CONFIDENTIAL"
                       value={settings.watermark}
                       onChange={(e) => updateSetting('watermark', e.target.value)}
                       className={styles.nestedInput}
@@ -573,19 +585,19 @@ export default function ImageUploader() {
                 {settings.enableMetadata && (
                   <div className={styles.nestedInputCard}>
                     <label className={styles.nestedLabel} htmlFor="doc-title-input">TITLE</label>
-                    <input 
+                    <input
                       id="doc-title-input"
-                      type="text" 
-                      placeholder="Title" 
+                      type="text"
+                      placeholder="Title"
                       value={settings.title}
                       onChange={(e) => updateSetting('title', e.target.value)}
                       className={styles.nestedInput}
                     />
                     <label className={styles.nestedLabel} htmlFor="doc-author-input" style={{ marginTop: '0.4rem' }}>AUTHOR</label>
-                    <input 
+                    <input
                       id="doc-author-input"
-                      type="text" 
-                      placeholder="Author" 
+                      type="text"
+                      placeholder="Author"
                       value={settings.author}
                       onChange={(e) => updateSetting('author', e.target.value)}
                       className={styles.nestedInput}
@@ -617,7 +629,6 @@ export default function ImageUploader() {
                 <span className={styles.weightVal}>
                   {estimatedMb} MB • {String(images.length).padStart(2, '0')} Pages
                 </span>
-                <span className={styles.weightBadge}>VERIFIED</span>
               </div>
             </div>
 
@@ -629,33 +640,28 @@ export default function ImageUploader() {
                   <span>{progress.total > 0 ? Math.round((progress.current / progress.total) * 100) : 0}%</span>
                 </div>
                 <div className={styles.compilingTrack}>
-                  <div 
-                    className={styles.compilingFill} 
-                    style={{ width: `${progress.total > 0 ? (progress.current / progress.total) * 100 : 15}%` }} 
+                  <div
+                    className={styles.compilingFill}
+                    style={{ width: `${progress.total > 0 ? (progress.current / progress.total) * 100 : 15}%` }}
                   />
                 </div>
               </div>
             )}
 
             {/* Primary Action Button */}
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={styles.compileMainBtn}
               onClick={handleCompilePDF}
-              disabled={isGenerating}
+              disabled={isGenerating || images.length === 0}
             >
               <FileDown size={17} />
               <span>
-                {isGenerating 
-                  ? `COMPILING (${progress.current}/${progress.total})...` 
+                {isGenerating
+                  ? `COMPILING (${progress.current}/${progress.total})...`
                   : `COMPILE PDF (${images.length})`}
               </span>
             </button>
-
-            {/* Footnote */}
-            <div className={styles.securityFootnote}>
-              <span>🔒 ZERO SERVER UPLOAD • 100% CLIENT-SIDE ENGINE</span>
-            </div>
           </div>
         </aside>
       </div>
@@ -664,9 +670,6 @@ export default function ImageUploader() {
       <footer className={styles.atelierFooter}>
         <div className={styles.footerLeft}>
           PRISM — CLIENT-SIDE IMAGE TO PDF CONVERTER
-        </div>
-        <div className={styles.footerRight}>
-          TYPESET IN NEWSREADER &amp; HANKEN GROTESK.
         </div>
       </footer>
 

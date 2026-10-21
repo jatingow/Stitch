@@ -1,5 +1,5 @@
 /* =========================================================================
-   PRISM — CLEAN EDITORIAL IMAGE TO PDF STYLESHEET
+   PRISM — EDITORIAL IMAGE TO PDF STYLESHEET (LIGHT & DARK THEMES)
    Typeset in Newsreader, Hanken Grotesk, and JetBrains Mono
    ========================================================================= */
 
@@ -13,6 +13,7 @@
   gap: 2rem;
   background-color: var(--bg-paper);
   color: var(--ink-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* 1. TOP HEADER - CLEAN & MINIMAL */
@@ -33,22 +34,9 @@
 .brandTitle {
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 1.45rem;
+  font-size: 1.55rem;
   letter-spacing: -0.02em;
   color: var(--ink-primary);
-}
-
-.brandDivider {
-  color: var(--border-strong);
-  font-size: 1rem;
-}
-
-.brandSub {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--ink-secondary);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 .headerActions {
@@ -57,27 +45,25 @@
   gap: 0.75rem;
 }
 
-.clearBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
-  background: #FFFFFF;
+/* Theme Toggle Button (Right Header) */
+.themeToggleBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--ink-secondary);
-  letter-spacing: 0.04em;
+  background: var(--bg-card);
+  color: var(--ink-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.clearBtn:hover {
+.themeToggleBtn:hover {
   background: var(--bg-muted);
-  color: var(--ink-primary);
   border-color: var(--border-strong);
+  transform: scale(1.05);
 }
 
 /* 2. HERO TITLE */
@@ -128,7 +114,7 @@
 
 /* Dropzone */
 .editorialDropzone {
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1.5px dashed var(--border-strong);
   border-radius: var(--radius-sm);
   padding: 3rem 2rem;
@@ -142,7 +128,7 @@
 }
 
 .editorialDropzone:hover {
-  background: #F4EFE6;
+  background: var(--bg-muted);
   border-color: var(--ink-primary);
 }
 
@@ -150,7 +136,7 @@
   width: 36px;
   height: 36px;
   border: 1px solid var(--border-strong);
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -184,7 +170,7 @@
 }
 
 .formatBadge {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   padding: 0.2rem 0.5rem;
   border-radius: 2px;
@@ -246,14 +232,14 @@
 
 /* Plate Card */
 .plateCard {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
   cursor: grab;
   position: relative;
@@ -261,7 +247,7 @@
 
 .plateCard:hover {
   border-color: var(--border-strong);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .plateCard:active {
@@ -272,7 +258,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  background: #EDEAE1;
+  background: var(--bg-muted);
   border-radius: 2px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -282,7 +268,7 @@
   position: absolute;
   top: 0.45rem;
   left: 0.45rem;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   padding: 0.15rem 0.4rem;
   font-family: var(--font-mono);
@@ -292,14 +278,14 @@
   border-radius: 2px;
   letter-spacing: 0.04em;
   z-index: 2;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dragGripBadge {
   position: absolute;
   top: 0.45rem;
   right: 0.45rem;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   width: 22px;
   height: 22px;
@@ -309,7 +295,7 @@
   color: var(--ink-secondary);
   border-radius: 2px;
   z-index: 2;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .plateImage {
@@ -324,8 +310,8 @@
   position: absolute;
   bottom: 0.45rem;
   left: 0.45rem;
-  background: rgba(20, 20, 19, 0.85);
-  color: #FFFFFF;
+  background: var(--ink-primary);
+  color: var(--bg-card);
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 600;
@@ -385,7 +371,7 @@
 }
 
 .plateToolBtn {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   width: 26px;
   height: 26px;
@@ -405,14 +391,14 @@
 }
 
 .plateRemoveBtn:hover {
-  background: #FEF2F2;
+  background: rgba(239, 68, 68, 0.15);
   border-color: #F87171;
   color: var(--ink-red);
 }
 
-/* Empty Insert Folio Plate Slot */
+/* Empty Insert Slot */
 .insertPlateSlot {
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1.5px dashed var(--border-strong);
   border-radius: var(--radius-sm);
   aspect-ratio: 4 / 3;
@@ -428,7 +414,7 @@
 }
 
 .insertPlateSlot:hover {
-  background: #F4EFE6;
+  background: var(--bg-muted);
   border-color: var(--ink-primary);
 }
 
@@ -436,7 +422,7 @@
   width: 30px;
   height: 30px;
   border: 1px solid var(--border-strong);
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -465,14 +451,14 @@
 }
 
 .ticketCard {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.35rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .ticketHeaderRow {
@@ -531,7 +517,7 @@
 /* Select Dropdown */
 .ticketSelect {
   width: 100%;
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1px solid var(--border-subtle);
   border-radius: 2px;
   padding: 0.55rem 0.75rem;
@@ -545,7 +531,12 @@
 
 .ticketSelect:focus {
   border-color: var(--ink-primary);
-  background: #FFFFFF;
+  background: var(--bg-card);
+}
+
+.ticketSelect option {
+  background: var(--bg-card);
+  color: var(--ink-primary);
 }
 
 /* Segmented Buttons */
@@ -561,7 +552,7 @@
   justify-content: center;
   gap: 0.45rem;
   padding: 0.5rem 0.75rem;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 2px;
   font-family: var(--font-sans);
@@ -577,9 +568,9 @@
 }
 
 .segmentBtnActive {
-  background: var(--ink-primary) !important;
-  color: #FFFFFF !important;
-  border-color: var(--ink-primary) !important;
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-color: var(--btn-primary-bg) !important;
   font-weight: 600;
 }
 
@@ -606,7 +597,7 @@
   width: 14px;
   height: 14px;
   background: var(--ink-primary);
-  border: 2px solid #FFFFFF;
+  border: 2px solid var(--bg-card);
   border-radius: 0;
   cursor: pointer;
   box-shadow: 0 0 0 1px var(--ink-primary);
@@ -616,7 +607,7 @@
   width: 14px;
   height: 14px;
   background: var(--ink-primary);
-  border: 2px solid #FFFFFF;
+  border: 2px solid var(--bg-card);
   border-radius: 0;
   cursor: pointer;
   box-shadow: 0 0 0 1px var(--ink-primary);
@@ -629,7 +620,7 @@
 }
 
 .presetPill {
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1px solid var(--border-subtle);
   padding: 0.35rem 0.2rem;
   text-align: center;
@@ -642,14 +633,14 @@
 }
 
 .presetPill:hover {
-  background: #FFFFFF;
+  background: var(--bg-card);
   color: var(--ink-primary);
 }
 
 .presetPillActive {
-  background: var(--ink-primary) !important;
-  color: #FFFFFF !important;
-  border-color: var(--ink-primary) !important;
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-color: var(--btn-primary-bg) !important;
   font-weight: 600;
 }
 
@@ -666,19 +657,19 @@
   gap: 0.65rem;
   padding: 0.65rem 0.75rem;
   border: 1px solid var(--border-subtle);
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border-radius: 2px;
   cursor: pointer;
   transition: var(--transition);
 }
 
 .densityOption:hover {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-color: var(--border-strong);
 }
 
 .densityOptionActive {
-  background: #FFFFFF !important;
+  background: var(--bg-card) !important;
   border-color: var(--ink-primary) !important;
   box-shadow: inset 0 0 0 1px var(--ink-primary);
 }
@@ -690,7 +681,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
+  color: var(--ink-primary);
   border-radius: 1px;
 }
 
@@ -758,7 +750,7 @@
 .switchBtn {
   width: 32px;
   height: 18px;
-  background: #E8E4DA;
+  background: var(--switch-track);
   border: 1px solid var(--border-strong);
   border-radius: 9px;
   position: relative;
@@ -771,7 +763,7 @@
 .switchKnob {
   width: 14px;
   height: 14px;
-  background: #FFFFFF;
+  background: var(--switch-knob);
   border-radius: 50%;
   position: absolute;
   top: 1px;
@@ -781,17 +773,17 @@
 }
 
 .switchBtnOn {
-  background: var(--ink-primary) !important;
-  border-color: var(--ink-primary) !important;
+  background: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-bg) !important;
 }
 
 .switchBtnOn .switchKnob {
   transform: translateX(14px);
-  background: #FFFFFF;
+  background: var(--btn-primary-text) !important;
 }
 
 .nestedInputCard {
-  background: #FAF8F5;
+  background: var(--bg-paper);
   border: 1px solid var(--border-subtle);
   border-radius: 2px;
   padding: 0.65rem;
@@ -810,7 +802,7 @@
 }
 
 .nestedInput {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-strong);
   border-radius: 2px;
   padding: 0.45rem 0.6rem;
@@ -826,7 +818,7 @@
 
 /* Estimated Weight Card */
 .weightCard {
-  background: #F3EFE7;
+  background: var(--bg-muted);
   border: 1px solid var(--border-subtle);
   border-radius: 2px;
   padding: 0.85rem 1rem;
@@ -856,7 +848,7 @@
 }
 
 .weightBadge {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1px solid var(--border-strong);
   padding: 0.15rem 0.45rem;
   font-family: var(--font-mono);
@@ -885,7 +877,7 @@
 
 .compilingTrack {
   height: 4px;
-  background: #EAE5DB;
+  background: var(--border-strong);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -898,9 +890,9 @@
 
 /* Primary Compile Button */
 .compileMainBtn {
-  background: var(--ink-primary);
-  color: #FFFFFF;
-  border: 1px solid var(--ink-primary);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-bg);
   border-radius: var(--radius-sm);
   padding: 0.85rem 1.25rem;
   font-family: var(--font-mono);
@@ -917,21 +909,12 @@
 }
 
 .compileMainBtn:hover:not(:disabled) {
-  background: #2D2C28;
+  background: var(--btn-primary-hover);
 }
 
 .compileMainBtn:disabled {
-  opacity: 0.6;
+  opacity: 0.45;
   cursor: not-allowed;
-}
-
-.securityFootnote {
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: var(--ink-tertiary);
-  letter-spacing: 0.05em;
-  padding-top: 0.25rem;
 }
 
 /* 4. FOOTER */
@@ -946,8 +929,6 @@
   font-size: 0.7rem;
   color: var(--ink-tertiary);
   letter-spacing: 0.04em;
-  flex-wrap: wrap;
-  gap: 0.75rem;
 }
 
 @keyframes fadeIn {
